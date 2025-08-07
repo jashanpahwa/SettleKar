@@ -3,8 +3,12 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
+import ListingsScreen from '../screens/ListingsScreen';
+import { RootStackParamList } from '../types/navigation';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -19,10 +23,15 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+      <Stack.Navigator>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+         <Stack.Screen 
+        name="Listings" 
+        component={ListingsScreen} 
+        options={{ title: 'Available Properties' }}
+      />
         <Stack.Screen name="+not-found" />
-      </Stack>
+      </Stack.Navigator>
       <StatusBar style="auto" />
     </ThemeProvider>
   );
